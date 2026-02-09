@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>suitespottr — list a space</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- nav -->
+  <nav class="navbar">
+    <div class="container">
+      <a href="index.html" class="nav-brand">suite<span>spottr</span></a>
+      <ul class="nav-links">
+        <li><a href="index.html">home</a></li>
+        <li><a href="listings.html">browse spaces</a></li>
+        <li><a href="list-space.html" class="nav-cta active">list a space</a></li>
+      </ul>
+      <button class="nav-toggle" aria-label="toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- list-space content -->
+  <div class="form-page page-top">
+    <div class="container" style="max-width: 800px;">
+
+      <div class="form-page-header">
+        <h1>list your space</h1>
+        <p>add your available unit and connect directly with small-business tenants. no broker fees, no middlemen.</p>
+      </div>
+
+      <!-- confirmation (hidden by default) -->
+      <div id="list-confirmation" class="confirmation-message">
+        <div class="confirmation-icon">✓</div>
+        <h3>your space has been submitted!</h3>
+        <p>we'll review your listing and have it live shortly. tenants will be able to find and contact you directly.</p>
+        <a href="listings.html" class="btn btn-primary" style="margin-top: 20px;">browse spaces</a>
+      </div>
+
+      <!-- form -->
+      <form id="list-space-form">
+
+        <!-- basic info -->
+        <div class="form-card">
+          <h2>basic info</h2>
+          <div class="form-row">
+            <div class="form-group" data-required>
+              <label>unit name *</label>
+              <input type="text" name="unit-name" placeholder="e.g. unit 4b — lakewood flex" required>
+              <div class="form-error">please enter a unit name</div>
+            </div>
+            <div class="form-group" data-required>
+              <label>city *</label>
+              <input type="text" name="city" placeholder="e.g. denver" required>
+              <div class="form-error">please enter a city</div>
+            </div>
+          </div>
+          <div class="form-group" data-required>
+            <label>street address *</label>
+            <input type="text" name="address" placeholder="e.g. 2481 w colfax ave" required>
+            <div class="form-error">please enter an address</div>
+          </div>
+          <div class="form-row">
+            <div class="form-group" data-required>
+              <label>space type *</label>
+              <select name="space-type" required>
+                <option value="">select type</option>
+                <option value="flex">flex</option>
+                <option value="warehouse">warehouse</option>
+                <option value="office-warehouse">office-warehouse</option>
+                <option value="small bay">small bay</option>
+              </select>
+              <div class="form-error">please select a space type</div>
+            </div>
+            <div class="form-group" data-required>
+              <label>size (sq ft) *</label>
+              <input type="number" name="sqft" placeholder="e.g. 1800" required>
+              <div class="form-error">please enter the size</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- pricing & lease -->
+        <div class="form-card">
+          <h2>pricing & lease</h2>
+          <div class="form-row">
+            <div class="form-group" data-required>
+              <label>total monthly price ($/mo) *</label>
+              <input type="number" name="price" placeholder="e.g. 2250" required>
+              <div class="form-error">please enter a monthly price</div>
+              <div class="form-hint">one clear number — include everything the tenant pays monthly</div>
+            </div>
+            <div class="form-group" data-required>
+              <label>minimum lease length (months) *</label>
+              <input type="number" name="min-lease" placeholder="e.g. 12" required>
+              <div class="form-error">please enter a minimum lease length</div>
+            </div>
+          </div>
+          <div class="form-group" data-required>
+            <label>availability date *</label>
+            <input type="date" name="available-date" required>
+            <div class="form-error">please select an availability date</div>
+          </div>
+        </div>
+
+        <!-- space details -->
+        <div class="form-card">
+          <h2>space details</h2>
+          <div class="form-row">
+            <div class="form-group">
+              <label>ceiling height</label>
+              <input type="text" name="ceiling-height" placeholder="e.g. 16 ft">
+            </div>
+            <div class="form-group">
+              <label>
+                <span class="tooltip-wrap">
+                  loading type
+                  <span class="tooltip-icon">?</span>
+                  <span class="tooltip-text">how trucks and vehicles access the space for deliveries and loading. "grade-level" means drive-in access from ground level. "dock-high" means a raised loading dock at truck-bed height.</span>
+                </span>
+              </label>
+              <select name="loading-type">
+                <option value="">select type</option>
+                <option value="grade-level">grade-level (drive-in from ground level)</option>
+                <option value="dock-high">dock-high (raised loading dock)</option>
+                <option value="none">none</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group" style="margin-bottom: 24px;">
+            <label style="margin-bottom: 10px;">move-in ready</label>
+            <div class="toggle-wrap">
+              <label class="toggle">
+                <input type="checkbox" name="move-in-ready">
+                <span class="toggle-slider"></span>
+              </label>
+              <span class="toggle-label">space is ready for immediate move-in</span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label style="margin-bottom: 10px;">what's included</label>
+            <div class="checkbox-group">
+              <label class="checkbox-item">
+                <input type="checkbox" name="included-utilities" value="utilities"> utilities included
+              </label>
+              <label class="checkbox-item">
+                <input type="checkbox" name="included-wifi" value="wifi"> wifi included
+              </label>
+              <label class="checkbox-item">
+                <input type="checkbox" name="included-parking" value="parking"> parking included
+              </label>
+              <label class="checkbox-item">
+                <input type="checkbox" name="included-hvac" value="hvac"> heating & cooling
+              </label>
+              <label class="checkbox-item">
+                <input type="checkbox" name="included-trash" value="trash"> trash removal
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- description & photos -->
+        <div class="form-card">
+          <h2>description & photos</h2>
+          <div class="form-group" data-required>
+            <label>description *</label>
+            <textarea name="description" placeholder="describe your space — what makes it great for a small business? mention features, layout, nearby highways, or anything a potential tenant would want to know." required style="min-height: 140px;"></textarea>
+            <div class="form-error">please enter a description</div>
+          </div>
+          <div class="form-group">
+            <label style="margin-bottom: 10px;">photos</label>
+            <div class="upload-area" onclick="this.querySelector('input').click()">
+              <div class="upload-icon">&#x1f4f7;</div>
+              <p>click to upload photos</p>
+              <p class="upload-hint">jpg, png, or webp — up to 10 images</p>
+              <input type="file" accept="image/*" multiple style="display: none;">
+            </div>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-lg" style="width: 100%;">submit listing</button>
+
+      </form>
+
+    </div>
+  </div>
+
+  <!-- footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div>
+          <div class="footer-brand">suite<span>spottr</span></div>
+          <p class="footer-tagline">flex & industrial space for small businesses</p>
+        </div>
+        <ul class="footer-links">
+          <li><a href="index.html">home</a></li>
+          <li><a href="listings.html">browse spaces</a></li>
+          <li><a href="list-space.html">list a space</a></li>
+        </ul>
+      </div>
+      <div class="footer-bottom">
+        &copy; 2026 suitespottr. all rights reserved.
+      </div>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

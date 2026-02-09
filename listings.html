@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>suitespottr — browse spaces</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- nav -->
+  <nav class="navbar">
+    <div class="container">
+      <a href="index.html" class="nav-brand">suite<span>spottr</span></a>
+      <ul class="nav-links">
+        <li><a href="index.html">home</a></li>
+        <li><a href="listings.html" class="active">browse spaces</a></li>
+        <li><a href="list-space.html" class="nav-cta">list a space</a></li>
+      </ul>
+      <button class="nav-toggle" aria-label="toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- listings content -->
+  <div class="page-top">
+    <div class="container">
+      <div class="form-page-header" style="margin-bottom: 28px;">
+        <h1>browse spaces</h1>
+        <p>find flex, warehouse, and small-bay space with clear monthly pricing</p>
+      </div>
+
+      <!-- filters -->
+      <div class="filters-bar">
+        <div class="filter-group">
+          <label>city</label>
+          <input type="text" id="filter-city" class="filter-input" placeholder="e.g. denver">
+        </div>
+        <div class="filter-group">
+          <label>min size (sq ft)</label>
+          <input type="number" id="filter-size-min" class="filter-input" placeholder="500">
+        </div>
+        <div class="filter-group">
+          <label>max size (sq ft)</label>
+          <input type="number" id="filter-size-max" class="filter-input" placeholder="5000">
+        </div>
+        <div class="filter-group">
+          <label>min price ($/mo)</label>
+          <input type="number" id="filter-price-min" class="filter-input" placeholder="1000">
+        </div>
+        <div class="filter-group">
+          <label>max price ($/mo)</label>
+          <input type="number" id="filter-price-max" class="filter-input" placeholder="5000">
+        </div>
+        <div class="filter-group">
+          <label>space type</label>
+          <select id="filter-type" class="filter-select">
+            <option value="">all types</option>
+            <option value="flex">flex</option>
+            <option value="warehouse">warehouse</option>
+            <option value="office-warehouse">office-warehouse</option>
+            <option value="small bay">small bay</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- active filter chips -->
+      <div id="filter-chips" class="filter-chips"></div>
+
+      <!-- results header -->
+      <div class="listings-header">
+        <div id="result-count" class="result-count"></div>
+        <select id="sort-select" class="sort-select">
+          <option value="newest">sort: newest</option>
+          <option value="price-asc">sort: price low → high</option>
+          <option value="price-desc">sort: price high → low</option>
+          <option value="size">sort: largest first</option>
+        </select>
+      </div>
+
+      <!-- grid -->
+      <div id="listings-grid" class="listings-grid" style="margin-bottom: 80px;"></div>
+    </div>
+  </div>
+
+  <!-- footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div>
+          <div class="footer-brand">suite<span>spottr</span></div>
+          <p class="footer-tagline">flex & industrial space for small businesses</p>
+        </div>
+        <ul class="footer-links">
+          <li><a href="index.html">home</a></li>
+          <li><a href="listings.html">browse spaces</a></li>
+          <li><a href="list-space.html">list a space</a></li>
+        </ul>
+      </div>
+      <div class="footer-bottom">
+        &copy; 2026 suitespottr. all rights reserved.
+      </div>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
