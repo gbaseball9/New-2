@@ -315,22 +315,6 @@ function initNavbar() {
       navbar.classList.remove("scrolled");
     }
   });
-
-  // mobile toggle
-  const toggle = document.querySelector(".nav-toggle");
-  const links = document.querySelector(".nav-links");
-  if (toggle && links) {
-    toggle.addEventListener("click", () => {
-      links.classList.toggle("open");
-    });
-
-    // close on link click
-    links.querySelectorAll("a").forEach(a => {
-      a.addEventListener("click", () => {
-        links.classList.remove("open");
-      });
-    });
-  }
 }
 
 // ---------- landing page ----------
