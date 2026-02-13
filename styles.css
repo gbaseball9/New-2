@@ -1011,6 +1011,12 @@ img {
 .detail-address {
   font-size: 0.95rem;
   color: var(--text-muted);
+  margin-bottom: 8px;
+}
+
+.detail-operator {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
   margin-bottom: 24px;
 }
 

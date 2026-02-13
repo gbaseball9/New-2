@@ -1,271 +1,72 @@
 /* ============================================
    suitespottr — app.js
-   mock data + all page functionality
+   loads data from db.json, all page functionality
    ============================================ */
 
-// ---------- mock listings data ----------
-const listings = [
-  {
-    id: 1,
-    name: "unit 4b — lakewood flex",
-    address: "2481 w colfax ave",
-    city: "denver",
-    state: "co",
-    sqft: 1800,
-    price: 2250,
-    type: "flex",
-    ceilingHeight: "16 ft",
-    loadingType: "grade-level",
-    loadingTooltip: "drive-in access from ground level — you can back a truck or van right up to the door",
-    minLease: 12,
-    moveInReady: true,
-    availableDate: "2026-03-01",
-    description: "bright flex space with open layout, ideal for small workshops, e-commerce storage, or creative studios. freshly painted with new epoxy floors.",
-    included: {
-      utilities: true,
-      wifi: false,
-      parking: true,
-      hvac: true,
-      trash: true
-    },
-    deposit: 2250,
-    added: "2026-01-28"
-  },
-  {
-    id: 2,
-    name: "bay 12 — southeast industrial",
-    address: "1350 marietta blvd nw",
-    city: "atlanta",
-    state: "ga",
-    sqft: 3200,
-    price: 3800,
-    type: "warehouse",
-    ceilingHeight: "22 ft",
-    loadingType: "dock-high",
-    loadingTooltip: "raised loading dock at truck-bed height — for receiving larger shipments with a loading dock",
-    minLease: 24,
-    moveInReady: true,
-    availableDate: "2026-02-15",
-    description: "spacious warehouse bay in active industrial park. high ceilings, column-free layout, and great access to i-75.",
-    included: {
-      utilities: false,
-      wifi: false,
-      parking: true,
-      hvac: false,
-      trash: true
-    },
-    deposit: 3800,
-    added: "2026-02-01"
-  },
-  {
-    id: 3,
-    name: "suite 201 — midtown office-warehouse",
-    address: "4420 n scottsdale rd",
-    city: "scottsdale",
-    state: "az",
-    sqft: 1200,
-    price: 1850,
-    type: "office-warehouse",
-    ceilingHeight: "12 ft",
-    loadingType: "grade-level",
-    loadingTooltip: "drive-in access from ground level — you can back a truck or van right up to the door",
-    minLease: 6,
-    moveInReady: true,
-    availableDate: "2026-02-20",
-    description: "split layout with finished office up front and warehouse in back. perfect for businesses that need both work and storage space.",
-    included: {
-      utilities: true,
-      wifi: true,
-      parking: true,
-      hvac: true,
-      trash: true
-    },
-    deposit: 1850,
-    added: "2026-02-05"
-  },
-  {
-    id: 4,
-    name: "unit 7 — eastside small bay",
-    address: "809 e pine st",
-    city: "seattle",
-    state: "wa",
-    sqft: 900,
-    price: 1600,
-    type: "small bay",
-    ceilingHeight: "14 ft",
-    loadingType: "grade-level",
-    loadingTooltip: "drive-in access from ground level — you can back a truck or van right up to the door",
-    minLease: 12,
-    moveInReady: false,
-    availableDate: "2026-04-01",
-    description: "compact small bay in up-and-coming eastside neighborhood. great for contractors, artisans, or small storage operations.",
-    included: {
-      utilities: true,
-      wifi: false,
-      parking: true,
-      hvac: true,
-      trash: true
-    },
-    deposit: 1600,
-    added: "2026-01-15"
-  },
-  {
-    id: 5,
-    name: "warehouse 3a — port district",
-    address: "2200 harbor blvd",
-    city: "houston",
-    state: "tx",
-    sqft: 5000,
-    price: 4500,
-    type: "warehouse",
-    ceilingHeight: "24 ft",
-    loadingType: "dock-high",
-    loadingTooltip: "raised loading dock at truck-bed height — for receiving larger shipments with a loading dock",
-    minLease: 24,
-    moveInReady: true,
-    availableDate: "2026-03-15",
-    description: "large warehouse with two dock-high doors and ample truck court. excellent for distribution, fulfillment, or manufacturing.",
-    included: {
-      utilities: false,
-      wifi: false,
-      parking: true,
-      hvac: false,
-      trash: false
-    },
-    deposit: 4500,
-    added: "2026-02-08"
-  },
-  {
-    id: 6,
-    name: "flex suite c — arts district",
-    address: "315 s santa fe ave",
-    city: "los angeles",
-    state: "ca",
-    sqft: 2200,
-    price: 3400,
-    type: "flex",
-    ceilingHeight: "18 ft",
-    loadingType: "grade-level",
-    loadingTooltip: "drive-in access from ground level — you can back a truck or van right up to the door",
-    minLease: 12,
-    moveInReady: true,
-    availableDate: "2026-02-28",
-    description: "creative flex space with polished concrete floors, exposed brick, and natural light. ideal for studios, showrooms, or light assembly.",
-    included: {
-      utilities: true,
-      wifi: true,
-      parking: false,
-      hvac: true,
-      trash: true
-    },
-    deposit: 3400,
-    added: "2026-02-03"
-  },
-  {
-    id: 7,
-    name: "bay 5 — northgate business park",
-    address: "6732 northgate blvd",
-    city: "charlotte",
-    state: "nc",
-    sqft: 1500,
-    price: 1950,
-    type: "small bay",
-    ceilingHeight: "14 ft",
-    loadingType: "grade-level",
-    loadingTooltip: "drive-in access from ground level — you can back a truck or van right up to the door",
-    minLease: 12,
-    moveInReady: true,
-    availableDate: "2026-03-01",
-    description: "well-maintained small bay with roll-up door and private restroom. centrally located near i-85 interchange.",
-    included: {
-      utilities: true,
-      wifi: false,
-      parking: true,
-      hvac: true,
-      trash: true
-    },
-    deposit: 1950,
-    added: "2026-01-20"
-  },
-  {
-    id: 8,
-    name: "suite 110 — crossroads commerce",
-    address: "1024 grand blvd",
-    city: "kansas city",
-    state: "mo",
-    sqft: 2800,
-    price: 2600,
-    type: "office-warehouse",
-    ceilingHeight: "16 ft",
-    loadingType: "grade-level",
-    loadingTooltip: "drive-in access from ground level — you can back a truck or van right up to the door",
-    minLease: 6,
-    moveInReady: false,
-    availableDate: "2026-05-01",
-    description: "office-warehouse combo in the crossroads district. front office with reception area, back warehouse with roll-up door access.",
-    included: {
-      utilities: true,
-      wifi: true,
-      parking: true,
-      hvac: true,
-      trash: true
-    },
-    deposit: 2600,
-    added: "2026-02-06"
-  },
-  {
-    id: 9,
-    name: "unit 22 — industrial park south",
-    address: "5501 s congress ave",
-    city: "austin",
-    state: "tx",
-    sqft: 1100,
-    price: 1750,
-    type: "flex",
-    ceilingHeight: "14 ft",
-    loadingType: "grade-level",
-    loadingTooltip: "drive-in access from ground level — you can back a truck or van right up to the door",
-    minLease: 12,
-    moveInReady: true,
-    availableDate: "2026-03-10",
-    description: "versatile flex unit in south austin. open floor plan with one private office and restroom. popular with small makers and online retailers.",
-    included: {
-      utilities: true,
-      wifi: false,
-      parking: true,
-      hvac: true,
-      trash: true
-    },
-    deposit: 1750,
-    added: "2026-02-07"
-  },
-  {
-    id: 10,
-    name: "warehouse 8 — riverside logistics",
-    address: "800 n river rd",
-    city: "chicago",
-    state: "il",
-    sqft: 4200,
-    price: 5200,
-    type: "warehouse",
-    ceilingHeight: "26 ft",
-    loadingType: "dock-high",
-    loadingTooltip: "raised loading dock at truck-bed height — for receiving larger shipments with a loading dock",
-    minLease: 24,
-    moveInReady: true,
-    availableDate: "2026-04-15",
-    description: "high-ceiling warehouse near the chicago river. three dock doors, sprinklered, and close to major expressways for easy distribution.",
-    included: {
-      utilities: false,
-      wifi: false,
-      parking: true,
-      hvac: false,
-      trash: true
-    },
-    deposit: 5200,
-    added: "2026-01-30"
+// ---------- database layer ----------
+let db = { operators: [], listings: [], inquiries: [] };
+
+async function loadDB() {
+  try {
+    const res = await fetch("db.json");
+    const data = await res.json();
+    db.operators = data.operators || [];
+    db.listings = (data.listings || []).map(normalizeListing);
+    db.inquiries = data.inquiries || [];
+
+    // merge any locally-saved data (from forms) on top
+    const local = JSON.parse(localStorage.getItem("suitespottr_db") || "{}");
+    if (local.operators) db.operators = db.operators.concat(local.operators);
+    if (local.listings) db.listings = db.listings.concat(local.listings.map(normalizeListing));
+    if (local.inquiries) db.inquiries = db.inquiries.concat(local.inquiries);
+  } catch (e) {
+    console.error("failed to load db.json:", e);
   }
-];
+}
+
+// map snake_case db fields → camelCase used by the UI
+function normalizeListing(l) {
+  return {
+    id: l.id,
+    operatorId: l.operator_id,
+    name: l.name,
+    address: l.address,
+    city: l.city,
+    state: l.state,
+    zip: l.zip || "",
+    sqft: l.sqft,
+    price: l.price,
+    type: l.type,
+    ceilingHeight: l.ceiling_height,
+    loadingType: l.loading_type,
+    loadingTooltip: l.loading_tooltip,
+    minLease: l.min_lease_months,
+    moveInReady: l.move_in_ready,
+    availableDate: l.available_date,
+    description: l.description,
+    included: l.included,
+    deposit: l.deposit,
+    status: l.status || "active",
+    added: l.created_at,
+    updatedAt: l.updated_at
+  };
+}
+
+function getOperator(id) {
+  return db.operators.find(o => o.id === id) || null;
+}
+
+function saveLocal(key, record) {
+  const local = JSON.parse(localStorage.getItem("suitespottr_db") || "{}");
+  if (!local[key]) local[key] = [];
+  local[key].push(record);
+  localStorage.setItem("suitespottr_db", JSON.stringify(local));
+}
+
+function nextId(table) {
+  const all = db[table] || [];
+  return all.length ? Math.max(...all.map(r => r.id)) + 1 : 1;
+}
 
 // ---------- utility helpers ----------
 function formatPrice(price) {
@@ -354,6 +155,8 @@ function initLanding() {
 function initListings() {
   const grid = document.getElementById("listings-grid");
   if (!grid) return;
+
+  const listings = db.listings.filter(l => l.status === "active");
 
   const params = getURLParams();
   const filters = {
@@ -559,7 +362,7 @@ function initDetail() {
 
   const params = getURLParams();
   const id = parseInt(params.get("id"));
-  const listing = listings.find(l => l.id === id);
+  const listing = db.listings.find(l => l.id === id);
 
   if (!listing) {
     container.innerHTML = `
@@ -575,6 +378,12 @@ function initDetail() {
 
   // update page title
   document.title = `suitespottr — ${listing.name}`;
+
+  // look up operator
+  const operator = getOperator(listing.operatorId);
+  const operatorHTML = operator
+    ? `<p class="detail-operator">listed by <strong>${operator.company}</strong></p>`
+    : "";
 
   const includedItems = [
     { key: "utilities", label: "utilities included" },
@@ -616,6 +425,7 @@ function initDetail() {
 
         <h1 class="detail-title">${listing.name}</h1>
         <p class="detail-address">${listing.address}, ${listing.city}, ${listing.state}</p>
+        ${operatorHTML}
 
         <div class="detail-price">${formatPrice(listing.price)}<small style="font-size:0.5em; font-weight:500; color:var(--text-muted)">/mo</small></div>
         <p class="detail-price-label">total monthly cost — everything in one number</p>
@@ -702,12 +512,24 @@ function initDetail() {
     </div>
   `;
 
-  // contact form handler
+  // contact form handler — saves inquiry to local db
   const contactForm = document.getElementById("contact-form");
   if (contactForm) {
     contactForm.addEventListener("submit", (e) => {
       e.preventDefault();
       if (validateForm(contactForm)) {
+        const formData = new FormData(contactForm);
+        const inquiry = {
+          id: nextId("inquiries"),
+          listing_id: listing.id,
+          name: formData.get("name"),
+          email: formData.get("email"),
+          message: formData.get("message"),
+          created_at: new Date().toISOString()
+        };
+        saveLocal("inquiries", inquiry);
+        db.inquiries.push(inquiry);
+
         contactForm.style.display = "none";
         document.getElementById("contact-confirmation").classList.add("show");
       }
@@ -723,6 +545,68 @@ function initListSpace() {
   form.addEventListener("submit", (e) => {
     e.preventDefault();
     if (validateForm(form)) {
+      const formData = new FormData(form);
+
+      // create operator record
+      const operatorId = nextId("operators");
+      const operator = {
+        id: operatorId,
+        name: formData.get("contact-name") || "operator",
+        company: formData.get("company") || "",
+        email: formData.get("contact-email") || "",
+        phone: formData.get("contact-phone") || "",
+        created_at: new Date().toISOString().slice(0, 10)
+      };
+      saveLocal("operators", operator);
+      db.operators.push(operator);
+
+      // build included map from checkboxes
+      const included = {
+        utilities: form.querySelector('[name="included-utilities"]')?.checked || false,
+        wifi: form.querySelector('[name="included-wifi"]')?.checked || false,
+        parking: form.querySelector('[name="included-parking"]')?.checked || false,
+        hvac: form.querySelector('[name="included-hvac"]')?.checked || false,
+        trash: form.querySelector('[name="included-trash"]')?.checked || false
+      };
+
+      // loading type tooltip map
+      const loadingTooltips = {
+        "grade-level": "drive-in access from ground level — you can back a truck or van right up to the door",
+        "dock-high": "raised loading dock at truck-bed height — for receiving larger shipments with a loading dock",
+        "none": "no dedicated loading access"
+      };
+      const loadingVal = formData.get("loading-type") || "none";
+
+      const price = parseInt(formData.get("price")) || 0;
+
+      // create listing record (snake_case for db)
+      const listing = {
+        id: nextId("listings"),
+        operator_id: operatorId,
+        name: formData.get("unit-name"),
+        address: formData.get("address"),
+        city: (formData.get("city") || "").toLowerCase(),
+        state: "",
+        zip: "",
+        sqft: parseInt(formData.get("sqft")) || 0,
+        price: price,
+        type: formData.get("space-type"),
+        ceiling_height: formData.get("ceiling-height") || "",
+        loading_type: loadingVal,
+        loading_tooltip: loadingTooltips[loadingVal] || "",
+        min_lease_months: parseInt(formData.get("min-lease")) || 12,
+        move_in_ready: form.querySelector('[name="move-in-ready"]')?.checked || false,
+        available_date: formData.get("available-date") || new Date().toISOString().slice(0, 10),
+        description: formData.get("description") || "",
+        included: included,
+        deposit: price,
+        status: "active",
+        created_at: new Date().toISOString().slice(0, 10),
+        updated_at: new Date().toISOString().slice(0, 10)
+      };
+      saveLocal("listings", listing);
+      db.listings.push(normalizeListing(listing));
+
       form.style.display = "none";
       document.getElementById("list-confirmation").classList.add("show");
       window.scrollTo({ top: 0, behavior: "smooth" });
@@ -798,9 +682,10 @@ function debounce(fn, delay) {
 }
 
 // ---------- init ----------
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
   initNavbar();
   initLanding();
+  await loadDB();
   initListings();
   initDetail();
   initListSpace();
