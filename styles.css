@@ -1426,6 +1426,130 @@ img {
   gap: 18px;
 }
 
+/* ---------- move-in ready meter (compact — cards) ---------- */
+.mir-meter-compact {
+  margin: 12px 0 14px;
+}
+
+.mir-meter-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.mir-meter-label {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.mir-meter-score {
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.mir-meter-track {
+  height: 6px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 50px;
+  overflow: hidden;
+}
+
+.mir-meter-fill {
+  height: 100%;
+  border-radius: 50px;
+  transition: width 0.6s ease;
+}
+
+/* ---------- move-in ready meter (detail — sidebar) ---------- */
+.mir-meter-detail {
+  background: var(--bg-card);
+  color: #e8eaf0;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 28px;
+  margin-bottom: 28px;
+}
+
+.mir-meter-detail-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.mir-meter-detail-header h3 {
+  font-size: 1.05rem;
+  font-weight: 700;
+}
+
+.mir-meter-score-lg {
+  font-size: 1.8rem;
+  font-weight: 800;
+}
+
+.mir-meter-score-lg small {
+  font-size: 0.5em;
+  font-weight: 500;
+  color: var(--text-muted);
+}
+
+.mir-meter-track-lg {
+  height: 10px;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.mir-meter-verdict {
+  font-size: 0.82rem;
+  font-weight: 600;
+  margin-top: 10px;
+  margin-bottom: 24px;
+}
+
+.mir-breakdown {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+}
+
+.mir-breakdown-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.mir-breakdown-label {
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  min-width: 100px;
+  flex-shrink: 0;
+}
+
+.mir-breakdown-track {
+  flex: 1;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 50px;
+  overflow: hidden;
+}
+
+.mir-breakdown-fill {
+  height: 100%;
+  border-radius: 50px;
+  transition: width 0.6s ease;
+}
+
+.mir-breakdown-pts {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  min-width: 30px;
+  text-align: right;
+}
+
 /* ---------- footer ---------- */
 .footer {
   background: var(--bg-secondary);

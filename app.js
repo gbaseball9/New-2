@@ -100,6 +100,126 @@ function getMoveInBadge(listing) {
   return "";
 }
 
+// ---------- move-in ready meter ----------
+function calculateMoveInScore(listing) {
+  let score = 0;
+  const breakdown = [];
+
+  // 1. move-in ready flag (0-3 points)
+  if (listing.moveInReady) {
+    score += 3;
+    breakdown.push({ label: "move-in ready", points: 3, max: 3 });
+  } else {
+    breakdown.push({ label: "move-in ready", points: 0, max: 3 });
+  }
+
+  // 2. availability speed (0-2 points)
+  const today = new Date();
+  const availDate = new Date(listing.availableDate);
+  const daysUntil = Math.max(0, Math.ceil((availDate - today) / (1000 * 60 * 60 * 24)));
+  let availPoints = 0;
+  if (daysUntil <= 0) availPoints = 2;
+  else if (daysUntil <= 30) availPoints = 1.5;
+  else if (daysUntil <= 60) availPoints = 1;
+  else if (daysUntil <= 90) availPoints = 0.5;
+  score += availPoints;
+  breakdown.push({ label: "availability", points: availPoints, max: 2 });
+
+  // 3. amenities included (0-3 points, 0.6 per amenity)
+  const amenities = listing.included || {};
+  const amenityCount = ["utilities", "wifi", "parking", "hvac", "trash"]
+    .filter(k => amenities[k]).length;
+  const amenityPoints = Math.round(amenityCount * 0.6 * 10) / 10;
+  score += amenityPoints;
+  breakdown.push({ label: "amenities", points: amenityPoints, max: 3 });
+
+  // 4. lease flexibility (0-1 point)
+  let leasePoints = 0;
+  if (listing.minLease <= 6) leasePoints = 1;
+  else if (listing.minLease <= 12) leasePoints = 0.5;
+  score += leasePoints;
+  breakdown.push({ label: "lease flexibility", points: leasePoints, max: 1 });
+
+  // 5. loading access (0-1 point)
+  let loadingPoints = 0;
+  if (listing.loadingType === "grade-level") loadingPoints = 1;
+  else if (listing.loadingType === "dock-high") loadingPoints = 0.5;
+  score += loadingPoints;
+  breakdown.push({ label: "easy access", points: loadingPoints, max: 1 });
+
+  // round to nearest 0.5, clamp 1-10
+  score = Math.max(1, Math.min(10, Math.round(score * 2) / 2));
+
+  return { score, breakdown };
+}
+
+function getMeterColor(score) {
+  if (score >= 8) return "var(--success)";
+  if (score >= 5) return "var(--warning)";
+  return "var(--danger)";
+}
+
+function getMeterLabel(score) {
+  if (score >= 9) return "show up & start";
+  if (score >= 7) return "nearly ready";
+  if (score >= 5) return "some setup needed";
+  if (score >= 3) return "plan ahead";
+  return "needs work";
+}
+
+function renderMeterCompact(listing) {
+  const { score } = calculateMoveInScore(listing);
+  const color = getMeterColor(score);
+  const pct = (score / 10) * 100;
+  return `
+    <div class="mir-meter-compact">
+      <div class="mir-meter-header">
+        <span class="mir-meter-label">move-in ready</span>
+        <span class="mir-meter-score" style="color:${color}">${score}/10</span>
+      </div>
+      <div class="mir-meter-track">
+        <div class="mir-meter-fill" style="width:${pct}%; background:${color}"></div>
+      </div>
+    </div>
+  `;
+}
+
+function renderMeterDetail(listing) {
+  const { score, breakdown } = calculateMoveInScore(listing);
+  const color = getMeterColor(score);
+  const label = getMeterLabel(score);
+  const pct = (score / 10) * 100;
+
+  const breakdownHTML = breakdown.map(b => {
+    const bPct = (b.points / b.max) * 100;
+    return `
+      <div class="mir-breakdown-row">
+        <span class="mir-breakdown-label">${b.label}</span>
+        <div class="mir-breakdown-track">
+          <div class="mir-breakdown-fill" style="width:${bPct}%; background:${getMeterColor(b.points / b.max * 10)}"></div>
+        </div>
+        <span class="mir-breakdown-pts">${b.points}/${b.max}</span>
+      </div>
+    `;
+  }).join("");
+
+  return `
+    <div class="mir-meter-detail">
+      <div class="mir-meter-detail-header">
+        <h3>move-in ready meter</h3>
+        <div class="mir-meter-score-lg" style="color:${color}">${score}<small>/10</small></div>
+      </div>
+      <div class="mir-meter-track mir-meter-track-lg">
+        <div class="mir-meter-fill" style="width:${pct}%; background:${color}"></div>
+      </div>
+      <div class="mir-meter-verdict" style="color:${color}">${label}</div>
+      <div class="mir-breakdown">
+        ${breakdownHTML}
+      </div>
+    </div>
+  `;
+}
+
 function getURLParams() {
   return new URLSearchParams(window.location.search);
 }
@@ -346,6 +466,7 @@ function initListings() {
             <span>·</span>
             ${getAvailabilityBadge(l)}
           </div>
+          ${renderMeterCompact(l)}
           <div class="listing-card-price">${formatPrice(l.price)}<small>/mo</small></div>
         </div>
       </a>
@@ -466,6 +587,8 @@ function initDetail() {
       </div>
 
       <div class="detail-right">
+        ${renderMeterDetail(listing)}
+
         <div class="cost-box">
           <h3>estimated move-in cost</h3>
           <div class="cost-line">
